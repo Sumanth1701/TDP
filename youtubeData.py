@@ -11,6 +11,21 @@ video_id = "7XgD6Wuou20"
 # Create a YouTube API client
 youtube = build('youtube', 'v3', developerKey=api_key)
 
+
+videos_list = youtube.videos().list(
+    part='snippet,liveStreamingDetails',
+    id=video_id
+).execute()
+
+# extract the start and end times of the live stream
+start_time = videos_list['items'][0]['liveStreamingDetails']['actualStartTime']
+end_time = videos_list['items'][0]['liveStreamingDetails']['actualEndTime']
+
+# print the start and end times in ISO 8601 format
+print('Start time:', start_time)
+print('End time:', end_time)
+
+
 # Call the API to get video details
 video_response = youtube.videos().list(id=video_id, part='snippet,statistics').execute()
 
