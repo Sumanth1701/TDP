@@ -1,6 +1,7 @@
 import re
 from datetime import datetime, timedelta
 import pytz
+import json
 
 # read in the transcript file
 with open('transcript.txt', 'r') as f:
@@ -11,7 +12,8 @@ matches = re.findall(r'(\bSPEAKER \d\b)\s(\d+:\d+:\d+)', transcript)
 
 # arbitrary date and time in UTC timezone
 arbitrary_time = datetime(2023, 3, 5, 1, 17, 19, tzinfo=pytz.UTC)
-sp_time =[]
+sp_time = []
+
 # loop through the matches and calculate the time period for each speaker
 for i, match in enumerate(matches):
     try:
@@ -22,9 +24,14 @@ for i, match in enumerate(matches):
         time_period = (end_time - start_time).total_seconds()
         speaker_start_time = arbitrary_time + timedelta(seconds=start_time.second, minutes=start_time.minute, hours=start_time.hour)
         speaker_end_time = arbitrary_time + timedelta(seconds=end_time.second, minutes=end_time.minute, hours=end_time.hour)
-        a = str(f"{speaker}  {speaker_start_time.isoformat()} - {speaker_end_time.isoformat()}")
-        sp_time.append(a)
+        sp_time.append({
+            "speaker": speaker,
+            "start_time": speaker_start_time.isoformat(),
+            "end_time": speaker_end_time.isoformat()
+        })
     except:
         print("index error")
 
-print(sp_time)
+# output the result as JSON
+with open('sp_time.json', 'w') as f:
+    json.dump(sp_time, f)
