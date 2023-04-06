@@ -1,0 +1,7 @@
+google_api_python_client==2.84.0
+numpy==1.23.5
+pyaudio==0.2.13
+pydub==0.25.1
+scikit_learn==1.2.2
+torch==1.13.1+cu116
+whisper==1.1.10
