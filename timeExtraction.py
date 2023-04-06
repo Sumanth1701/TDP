@@ -33,5 +33,5 @@ for i, match in enumerate(matches):
         print("index error")
 
 # output the result as JSON
-with open('sp_time.json', 'w') as f:
+with open('timeExtraction.json', 'w') as f:
     json.dump(sp_time, f)
