@@ -26,8 +26,8 @@ for i, match in enumerate(matches):
         speaker_end_time = arbitrary_time + timedelta(seconds=end_time.second, minutes=end_time.minute, hours=end_time.hour)
         sp_time.append({
             "speaker": speaker,
-            "start_time": speaker_start_time.isoformat(),
-            "end_time": speaker_end_time.isoformat()
+            "start_time": speaker_start_time.isoformat(timespec='milliseconds') + 'Z',
+            "end_time": speaker_end_time.isoformat(timespec='milliseconds') + 'Z'
         })
     except:
         print("index error")
